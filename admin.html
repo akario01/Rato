@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Administração</title>
+    <link rel="stylesheet" href="admin-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Tela de Login -->
+    <main id="login-section" class="container">
+        <header>
+            <img src="logo.jpg" alt="Logo da Barbearia" class="logo">
+        </header>
+        <section>
+            <h2>Acesso Restrito</h2>
+            <form id="login-form">
+                <input type="email" id="admin-email" placeholder="Email" class="input-field" required>
+                <input type="password" id="admin-password" placeholder="Senha" class="input-field" required>
+                <button type="submit" class="btn-primary">Entrar</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </section>
+    </main>
+
+    <!-- O Novo Dashboard -->
+    <div id="admin-dashboard" class="hidden">
+        <nav class="sidebar">
+            <div class="sidebar-header"><img src="logo.jpg" alt="Logo" class="sidebar-logo"></div>
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-section="dashboard-section"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></li>
+                <li class="menu-item" data-section="agenda-section"><i class="fas fa-calendar-alt"></i><span>Agenda</span></li>
+                <li class="menu-item" data-section="clientes-section"><i class="fas fa-users"></i><span>Clientes</span></li>
+                <li class="menu-item" data-section="financeiro-section"><i class="fas fa-chart-line"></i><span>Financeiro</span></li>
+            </ul>
+            <div class="sidebar-footer"><button id="logout-button"><i class="fas fa-sign-out-alt"></i><span>Sair</span></button></div>
+        </nav>
+
+        <main class="main-content">
+            <!-- Seção 1: Dashboard (Visão Geral) -->
+            <section id="dashboard-section" class="dashboard-section active-section">
+                <header class="main-header"><h1>Dashboard</h1><p>Bem-vindo! Aqui está um resumo do seu dia.</p></header>
+                <div class="stats-grid">
+                    <div class="stat-card"><i class="fas fa-calendar-check"></i><div class="stat-info"><span class="stat-value" id="stat-agendamentos-hoje">0</span><span class="stat-label">Agendamentos Hoje</span></div></div>
+                    <div class="stat-card"><i class="fas fa-dollar-sign"></i><div class="stat-info"><span class="stat-value" id="stat-faturamento-dia">R$ 0,00</span><span class="stat-label">Faturamento do Dia</span></div></div>
+                </div>
+                <div class="content-box"><h2>Próximos Agendamentos</h2><div id="proximos-agendamentos-list"><p>Nenhum agendamento futuro.</p></div></div>
+            </section>
+
+            <!-- Seção 2: Agenda Visual -->
+            <section id="agenda-section" class="dashboard-section">
+                 <header class="main-header"><h1>Agenda</h1><div class="agenda-controls"><input type="date" id="agenda-date-picker" class="input-field"><button id="add-appointment-btn" class="btn-primary"><i class="fas fa-plus"></i> Novo</button></div></header>
+                <div id="agenda-grid-container"></div>
+            </section>
+
+            <!-- Seção 3: Clientes -->
+            <section id="clientes-section" class="dashboard-section">
+                <header class="main-header"><h1>Clientes</h1><div class="clientes-controls"><input type="text" id="client-search-input" class="input-field" placeholder="Buscar cliente por nome..."><button id="add-new-client-btn" class="btn-primary"><i class="fas fa-user-plus"></i> Novo Cliente</button></div></header>
+                <div id="client-manager-list"></div>
+            </section>
+
+            <!-- Seção 4: Financeiro -->
+            <section id="financeiro-section" class="dashboard-section">
+                <header class="main-header"><h1>Relatório Financeiro</h1></header>
+                <div class="report-box">
+                    <h2>Faturamento por Período</h2>
+                    <div class="date-range-picker">
+                        <div><label for="start-date">Data de Início</label><input type="date" id="start-date" class="input-field"></div>
+                        <div><label for="end-date">Data de Fim</label><input type="date" id="end-date" class="input-field"></div>
+                    </div>
+                    <button id="calculate-revenue-btn" class="btn-primary">Gerar Relatório</button>
+                    <div id="revenue-result" class="revenue-display hidden"></div>
+                </div>
+                <div class="content-box"><h2>Desempenho Mensal</h2><canvas id="revenue-chart"></canvas></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modais -->
+    <div id="modal-backdrop" class="hidden">
+        <div id="modal-content">
+            <div class="modal-header"><h3>Novo Agendamento</h3></div>
+            <form id="manual-booking-form">
+                <div class="modal-body">
+                    <input type="text" id="manual-client-name" placeholder="Nome do Cliente" class="input-field" required>
+                    <input type="tel" id="manual-client-phone" placeholder="Telefone com DDD" class="input-field" required>
+                    <select id="manual-service-picker" class="input-field" required><option value="" disabled selected>Selecione um serviço</option></select>
+                    <select id="manual-time-picker" class="input-field" required><option value="" disabled selected>Selecione um horário</option></select>
+                </div>
+                <div class="modal-footer">
+                    <div> <!-- Wrapper para alinhamento -->
+                        <button type="button" id="cancel-modal-btn" class="btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="client-profile-modal-backdrop" class="hidden">
+        <div id="client-profile-modal-content">
+            <div class="modal-header"><h3>Perfil do Cliente</h3></div>
+            <form id="client-profile-form">
+                <div class="modal-body" id="client-profile-details"></div>
+                <div class="modal-footer">
+                    <button type="button" id="delete-client-btn" class="btn-danger hidden">Excluir</button>
+                    <div> <!-- Wrapper para alinhar à direita -->
+                        <button type="button" id="close-client-modal-btn" class="btn-secondary">Fechar</button>
+                        <button type="submit" class="btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+/* ===================================================================
+   ARQUIVO DE ESTILO (CSS) V2.5 - DASHBOARD DE GESTÃO PROFISSIONAL
+   Correção de Alinhamento de Botões no Modal.
+   =================================================================== */
+
+/* --- Variáveis de Cor e Fontes --- */
+:root {
+    --cor-fundo-app: #121212;
+    --cor-fundo-painel: #1e1e1e;
+    --cor-fundo-cartao: #2a2a2a;
+    --cor-borda: #383838;
+    --cor-primaria: #c5a47e;
+    --cor-primaria-suave: rgba(197, 164, 126, 0.15);
+    --cor-texto-principal: #e0e0e0;
+    --cor-texto-secundario: #a0a0a0;
+    --cor-perigo: #e57373;
+    --cor-perigo-suave: rgba(229, 115, 115, 0.1);
+    --cor-sucesso: #81c784;
+    --cor-fundo-input: #333;
+    --font-principal: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- Reset e Configurações Globais --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-principal);
+    background-color: var(--cor-fundo-app);
+    color: var(--cor-texto-principal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: 600; color: var(--cor-texto-principal); }
+p { color: var(--cor-texto-secundario); }
+
+/* --- Tela de Login --- */
+#login-section { max-width: 400px; margin: 5% auto; text-align: center; }
+#login-section .logo { width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--cor-primaria); margin-bottom: 20px; cursor: pointer; }
+#login-section section { background-color: var(--cor-fundo-painel); padding: 40px; border-radius: 12px; border: 1px solid var(--cor-borda); }
+#login-section h2 { margin-bottom: 25px; font-size: 1.5rem; }
+#login-form { display: flex; flex-direction: column; gap: 15px; }
+#login-form .input-field { margin-bottom: 0; }
+
+/* --- Layout do Dashboard --- */
+#admin-dashboard { display: flex; height: 100vh; }
+
+/* --- Barra Lateral (Sidebar) --- */
+.sidebar { width: 240px; background-color: var(--cor-fundo-painel); border-right: 1px solid var(--cor-borda); display: flex; flex-direction: column; transition: width 0.3s ease; }
+.sidebar-header { padding: 20px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid var(--cor-borda); }
+.sidebar-logo { width: 50px; height: 50px; border-radius: 50%; cursor: pointer; }
+.sidebar-menu { list-style: none; flex-grow: 1; padding-top: 20px; }
+.menu-item { display: flex; align-items: center; padding: 15px 25px; margin: 5px 10px; border-radius: 8px; cursor: pointer; color: var(--cor-texto-secundario); transition: background-color 0.2s ease, color 0.2s ease; }
+.menu-item i { font-size: 1.2rem; width: 30px; text-align: center; }
+.menu-item span { margin-left: 15px; font-weight: 500; }
+.menu-item:hover { background-color: var(--cor-fundo-cartao); color: var(--cor-texto-principal); }
+.menu-item.active { background-color: var(--cor-primaria); color: #fff; font-weight: 600; }
+.sidebar-footer { padding: 20px; border-top: 1px solid var(--cor-borda); }
+#logout-button { background: none; border: none; color: var(--cor-texto-secundario); font-family: var(--font-principal); font-size: 1rem; font-weight: 500; display: flex; align-items: center; width: 100%; padding: 10px; border-radius: 8px; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
+#logout-button:hover { color: var(--cor-perigo); background-color: var(--cor-perigo-suave); }
+#logout-button i { margin-right: 15px; font-size: 1.2rem; }
+
+/* --- Conteúdo Principal --- */
+.main-content { flex-grow: 1; padding: 30px; overflow-y: auto; height: 100vh; }
+.dashboard-section { display: none; }
+.dashboard-section.active-section { display: block; }
+.main-header { margin-bottom: 30px; }
+.main-header h1 { font-size: 2rem; font-weight: 700; }
+.main-header p { font-size: 1.1rem; color: var(--cor-texto-secundario); }
+.content-box { background-color: var(--cor-fundo-painel); padding: 25px; border-radius: 12px; border: 1px solid var(--cor-borda); margin-top: 30px; }
+.content-box h2 { margin-bottom: 20px; font-size: 1.3rem; }
+
+/* --- Estilos das Seções --- */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+.stat-card { background-color: var(--cor-fundo-painel); padding: 25px; border-radius: 12px; border: 1px solid var(--cor-borda); display: flex; align-items: center; gap: 20px; }
+.stat-card i { font-size: 2.5rem; color: var(--cor-primaria); }
+.stat-info .stat-value { display: block; font-size: 2rem; font-weight: 700; color: var(--cor-texto-principal); }
+.stat-info .stat-label { color: var(--cor-texto-secundario); }
+
+.appointment-card { display: flex; justify-content: space-between; align-items: center; background-color: var(--cor-fundo-cartao); padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--cor-primaria); }
+.appointment-card .details p { margin: 0 0 5px 0; line-height: 1.4; }
+.appointment-card .details p:last-child { margin-bottom: 0; }
+.appointment-card .details .label { font-weight: 600; color: var(--cor-texto-secundario); margin-right: 8px; }
+.appointment-card .actions { display: flex; align-items: center; gap: 5px; }
+.appointment-card .actions button { background: transparent; border: none; color: var(--cor-texto-secundario); font-size: 1.1rem; cursor: pointer; padding: 5px; border-radius: 50%; width: 36px; height: 36px; transition: all 0.2s; }
+.appointment-card .actions .profile-btn:hover { color: var(--cor-primaria); background-color: var(--cor-primaria-suave); }
+.appointment-card .actions .delete-btn:hover { color: var(--cor-perigo); background-color: var(--cor-perigo-suave); }
+
+.agenda-controls, .clientes-controls { display: flex; gap: 15px; align-items: center; margin-top: 15px; }
+.agenda-controls .input-field, .clientes-controls .input-field { margin-bottom: 0; max-width: 200px; }
+.agenda-controls .btn-primary, .clientes-controls .btn-primary { padding: 12px 20px; font-size: 1rem; width: auto; }
+#agenda-grid-container { background-color: var(--cor-fundo-painel); padding: 20px; border-radius: 12px; border: 1px solid var(--cor-borda); margin-top: 20px; }
+.time-slot { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid var(--cor-borda); transition: background-color 0.2s; }
+.time-slot:last-child { border-bottom: none; }
+.time-label { width: 80px; font-weight: 600; color: var(--cor-texto-secundario); }
+.appointment-block { flex-grow: 1; background-color: var(--cor-primaria-suave); border-left: 4px solid var(--cor-primaria); padding: 15px; border-radius: 8px; cursor: pointer; position: relative; } /* Adicionado position relative */
+.appointment-block strong { font-weight: 600; }
+.appointment-block span { display: block; font-size: 0.9rem; color: var(--cor-texto-secundario); }
+.empty-slot { flex-grow: 1; padding: 15px; color: var(--cor-texto-secundario); cursor: pointer; border-radius: 8px; }
+.empty-slot:hover { background-color: var(--cor-fundo-cartao); }
+#client-manager-list { margin-top: 20px; }
+.client-list-item { display: flex; justify-content: space-between; align-items: center; padding: 20px; background-color: var(--cor-fundo-painel); border: 1px solid var(--cor-borda); border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.2s, background-color 0.2s; }
+.client-list-item:hover { border-color: var(--cor-primaria); background-color: var(--cor-fundo-cartao); }
+.client-list-item strong { font-size: 1.1rem; }
+.client-list-item span { color: var(--cor-texto-secundario); }
+.client-list-item i { color: var(--cor-texto-secundario); }
+.report-box { background-color: var(--cor-fundo-painel); padding: 25px; border-radius: 12px; border: 1px solid var(--cor-borda); }
+.date-range-picker { display: flex; gap: 20px; margin-bottom: 20px; }
+.date-range-picker > div { flex: 1; }
+.revenue-display { margin-top: 20px; }
+#revenue-chart { max-height: 300px; margin-top: 20px; }
+
+/* --- Componentes Reutilizáveis --- */
+.input-field { background-color: var(--cor-fundo-input); border: 1px solid var(--cor-borda); color: var(--cor-texto-principal); border-radius: 8px; padding: 12px 15px; font-size: 1rem; font-family: var(--font-principal); width: 100%; }
+.input-field:focus { outline: none; border-color: var(--cor-primaria); box-shadow: 0 0 0 3px var(--cor-primaria-suave); }
+.btn-primary { background-color: var(--cor-primaria); color: #fff; border: none; border-radius: 8px; padding: 12px 25px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; }
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-secondary { background-color: transparent; border: 1px solid var(--cor-borda); color: var(--cor-texto-principal); border-radius: 8px; padding: 12px 25px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-secondary:hover { background-color: var(--cor-fundo-cartao); border-color: var(--cor-texto-principal); }
+.btn-danger { background-color: transparent; border: 1px solid var(--cor-perigo); color: var(--cor-perigo); border-radius: 8px; padding: 12px 25px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-danger:hover { background-color: var(--cor-perigo-suave); }
+
+/* --- Modais --- */
+#modal-backdrop, #client-profile-modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
+#modal-content, #client-profile-modal-content { background-color: var(--cor-fundo-painel); border-radius: 12px; width: 90%; max-width: 500px; border: 1px solid var(--cor-borda); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.modal-header { padding: 20px 30px; border-bottom: 1px solid var(--cor-borda); }
+.modal-header h3 { font-size: 1.3rem; }
+.modal-body { padding: 30px; display: flex; flex-direction: column; gap: 20px; }
+.modal-body .input-group { margin-bottom: 0; }
+.modal-body .input-group label { margin-bottom: 8px; font-size: 0.9rem; color: var(--cor-texto-secundario); font-weight: 500; }
+.modal-body .input-field { margin-bottom: 0; }
+.modal-footer { padding: 20px 30px; border-top: 1px solid var(--cor-borda); display: flex; align-items: center; gap: 15px; }
+
+/* ✅ CORREÇÃO DE HARMONIA: Garante o alinhamento correto dos botões */
+.modal-footer > div { display: flex; gap: 15px; margin-left: auto; /* Empurra o grupo para a direita */ }
+
+.modal-footer button { padding: 12px 25px; font-size: 1rem; font-weight: 600; width: auto; border-radius: 8px; }
+
+/* --- Utilitários --- */
+.hidden { display: none !important; }
+.loading-spinner { width: 30px; height: 30px; border: 4px solid var(--cor-borda); border-top-color: var(--cor-primaria); border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .sidebar { width: 80px; }
+    .sidebar span { display: none; }
+    .menu-item, #logout-button { justify-content: center; margin: 5px; }
+    .menu-item i, #logout-button i { margin: 0; }
+    .main-content { padding: 20px; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .date-range-picker { flex-direction: column; }
+}
