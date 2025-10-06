@@ -90,10 +90,8 @@
                     <select id="manual-time-picker" class="input-field" required><option value="" disabled selected>Selecione um horário</option></select>
                 </div>
                 <div class="modal-footer">
-                    <div> <!-- Wrapper para alinhamento -->
-                        <button type="button" id="cancel-modal-btn" class="btn-secondary">Cancelar</button>
-                        <button type="submit" class="btn-primary">Salvar</button>
-                    </div>
+                    <button type="button" id="cancel-modal-btn" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
@@ -103,12 +101,11 @@
             <div class="modal-header"><h3>Perfil do Cliente</h3></div>
             <form id="client-profile-form">
                 <div class="modal-body" id="client-profile-details"></div>
+                <!-- ✅ CORREÇÃO DE HARMONIA (HTML): Estrutura simplificada para alinhamento -->
                 <div class="modal-footer">
                     <button type="button" id="delete-client-btn" class="btn-danger hidden">Excluir</button>
-                    <div> <!-- Wrapper para alinhar à direita -->
-                        <button type="button" id="close-client-modal-btn" class="btn-secondary">Fechar</button>
-                        <button type="submit" class="btn-primary">Salvar</button>
-                    </div>
+                    <button type="button" id="close-client-modal-btn" class="btn-secondary">Fechar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
