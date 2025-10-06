@@ -1,168 +1,123 @@
-/* ===================================================================
-   ARQUIVO DE ESTILO (CSS) V3.3 - A CORREÇÃO FINAL E LITERAL
-   =================================================================== */
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Administração</title>
+    <link rel="stylesheet" href="admin-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Tela de Login -->
+    <main id="login-section" class="container">
+        <header>
+            <img src="logo.jpg" alt="Logo da Barbearia" class="logo">
+        </header>
+        <section>
+            <h2>Acesso Restrito</h2>
+            <form id="login-form">
+                <input type="email" id="admin-email" placeholder="Email" class="input-field" required>
+                <input type="password" id="admin-password" placeholder="Senha" class="input-field" required>
+                <button type="submit" class="btn-primary">Entrar</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </section>
+    </main>
 
-/* --- Variáveis de Cor e Fontes --- */
-:root {
-    --cor-fundo-app: #121212;
-    --cor-fundo-painel: #1e1e1e;
-    --cor-fundo-cartao: #2a2a2a;
-    --cor-borda: #383838;
-    --cor-primaria: #c5a47e;
-    --cor-primaria-suave: rgba(197, 164, 126, 0.15);
-    --cor-texto-principal: #e0e0e0;
-    --cor-texto-secundario: #a0a0a0;
-    --cor-perigo: #e57373;
-    --cor-perigo-suave: rgba(229, 115, 115, 0.1);
-    --cor-sucesso: #81c784;
-    --cor-fundo-input: #333;
-    --font-principal: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
+    <!-- O Novo Dashboard -->
+    <div id="admin-dashboard" class="hidden">
+        <nav class="sidebar">
+            <div class="sidebar-header"><img src="logo.jpg" alt="Logo" class="sidebar-logo"></div>
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-section="dashboard-section"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></li>
+                <li class="menu-item" data-section="agenda-section"><i class="fas fa-calendar-alt"></i><span>Agenda</span></li>
+                <li class="menu-item" data-section="clientes-section"><i class="fas fa-users"></i><span>Clientes</span></li>
+                <li class="menu-item" data-section="financeiro-section"><i class="fas fa-chart-line"></i><span>Financeiro</span></li>
+            </ul>
+            <div class="sidebar-footer"><button id="logout-button"><i class="fas fa-sign-out-alt"></i><span>Sair</span></button></div>
+        </nav>
 
-/* --- Reset e Configurações Globais --- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+        <main class="main-content">
+            <!-- Seção 1: Dashboard (Visão Geral) -->
+            <section id="dashboard-section" class="dashboard-section active-section">
+                <header class="main-header"><h1>Dashboard</h1><p>Bem-vindo! Aqui está um resumo do seu dia.</p></header>
+                <div class="stats-grid">
+                    <div class="stat-card"><i class="fas fa-calendar-check"></i><div class="stat-info"><span class="stat-value" id="stat-agendamentos-hoje">0</span><span class="stat-label">Agendamentos Hoje</span></div></div>
+                    <div class="stat-card"><i class="fas fa-dollar-sign"></i><div class="stat-info"><span class="stat-value" id="stat-faturamento-dia">R$ 0,00</span><span class="stat-label">Faturamento do Dia</span></div></div>
+                </div>
+                <div class="content-box"><h2>Próximos Agendamentos</h2><div id="proximos-agendamentos-list"><p>Nenhum agendamento futuro.</p></div></div>
+            </section>
 
-body {
-    font-family: var(--font-principal);
-    background-color: var(--cor-fundo-app);
-    color: var(--cor-texto-principal);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
+            <!-- Seção 2: Agenda Visual -->
+            <section id="agenda-section" class="dashboard-section">
+                 <header class="main-header"><h1>Agenda</h1><div class="agenda-controls"><input type="date" id="agenda-date-picker" class="input-field"><button id="add-appointment-btn" class="btn-primary"><i class="fas fa-plus"></i> Novo</button></div></header>
+                <div id="agenda-grid-container"></div>
+            </section>
 
-h1, h2, h3, h4, h5, h6 { font-weight: 600; color: var(--cor-texto-principal); }
-p { color: var(--cor-texto-secundario); }
+            <!-- Seção 3: Clientes -->
+            <section id="clientes-section" class="dashboard-section">
+                <header class="main-header"><h1>Clientes</h1><div class="clientes-controls"><input type="text" id="client-search-input" class="input-field" placeholder="Buscar cliente por nome..."><button id="add-new-client-btn" class="btn-primary"><i class="fas fa-user-plus"></i> Novo Cliente</button></div></header>
+                <div id="client-manager-list"></div>
+            </section>
 
-/* --- Tela de Login --- */
-#login-section { max-width: 400px; margin: 5% auto; text-align: center; }
-#login-section .logo { width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--cor-primaria); margin-bottom: 20px; cursor: pointer; }
-#login-section section { background-color: var(--cor-fundo-painel); padding: 40px; border-radius: 12px; border: 1px solid var(--cor-borda); }
-#login-section h2 { margin-bottom: 25px; font-size: 1.5rem; }
-#login-form { display: flex; flex-direction: column; gap: 15px; }
-#login-form .input-field { margin-bottom: 0; }
+            <!-- Seção 4: Financeiro -->
+            <section id="financeiro-section" class="dashboard-section">
+                <header class="main-header"><h1>Relatório Financeiro</h1></header>
+                <div class="report-box">
+                    <h2>Faturamento por Período</h2>
+                    <div class="date-range-picker">
+                        <div><label for="start-date">Data de Início</label><input type="date" id="start-date" class="input-field"></div>
+                        <div><label for="end-date">Data de Fim</label><input type="date" id="end-date" class="input-field"></div>
+                    </div>
+                    <button id="calculate-revenue-btn" class="btn-primary">Gerar Relatório</button>
+                    <div id="revenue-result" class="revenue-display hidden"></div>
+                </div>
+                <div class="content-box"><h2>Desempenho Mensal</h2><canvas id="revenue-chart"></canvas></div>
+            </section>
+        </main>
+    </div>
 
-/* --- Layout do Dashboard --- */
-#admin-dashboard { display: flex; height: 100vh; }
+    <!-- Modais -->
+    <div id="modal-backdrop" class="hidden">
+        <div id="modal-content">
+            <div class="modal-header"><h3>Novo Agendamento</h3></div>
+            <form id="manual-booking-form">
+                <div class="modal-body">
+                    <input type="text" id="manual-client-name" placeholder="Nome do Cliente" class="input-field" required>
+                    <input type="tel" id="manual-client-phone" placeholder="Telefone com DDD" class="input-field" required>
+                    <select id="manual-service-picker" class="input-field" required><option value="" disabled selected>Selecione um serviço</option></select>
+                    <select id="manual-time-picker" class="input-field" required><option value="" disabled selected>Selecione um horário</option></select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cancel-modal-btn" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="client-profile-modal-backdrop" class="hidden">
+        <div id="client-profile-modal-content">
+            <div class="modal-header"><h3>Perfil do Cliente</h3></div>
+            <form id="client-profile-form">
+                <div class="modal-body" id="client-profile-details"></div>
+                <!-- ✅ A CORREÇÃO FINAL E CORRETA (HTML) -->
+                <div class="modal-footer">
+                    <button type="button" id="delete-client-btn" class="btn-danger hidden">Excluir</button>
+                    <div class="modal-footer-actions">
+                        <button type="button" id="close-client-modal-btn" class="btn-secondary">Fechar</button>
+                        <button type="submit" class="btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-/* --- Barra Lateral (Sidebar) --- */
-.sidebar { width: 240px; background-color: var(--cor-fundo-painel); border-right: 1px solid var(--cor-borda); display: flex; flex-direction: column; transition: width 0.3s ease; }
-.sidebar-header { padding: 20px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid var(--cor-borda); }
-.sidebar-logo { width: 50px; height: 50px; border-radius: 50%; cursor: pointer; }
-.sidebar-menu { list-style: none; flex-grow: 1; padding-top: 20px; }
-.menu-item { display: flex; align-items: center; padding: 15px 25px; margin: 5px 10px; border-radius: 8px; cursor: pointer; color: var(--cor-texto-secundario); transition: background-color 0.2s ease, color 0.2s ease; }
-.menu-item i { font-size: 1.2rem; width: 30px; text-align: center; }
-.menu-item span { margin-left: 15px; font-weight: 500; }
-.menu-item:hover { background-color: var(--cor-fundo-cartao); color: var(--cor-texto-principal); }
-.menu-item.active { background-color: var(--cor-primaria); color: #fff; font-weight: 600; }
-.sidebar-footer { padding: 20px; border-top: 1px solid var(--cor-borda); }
-#logout-button { background: none; border: none; color: var(--cor-texto-secundario); font-family: var(--font-principal); font-size: 1rem; font-weight: 500; display: flex; align-items: center; width: 100%; padding: 10px; border-radius: 8px; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
-#logout-button:hover { color: var(--cor-perigo); background-color: var(--cor-perigo-suave); }
-#logout-button i { margin-right: 15px; font-size: 1.2rem; }
-
-/* --- Conteúdo Principal --- */
-.main-content { flex-grow: 1; padding: 30px; overflow-y: auto; height: 100vh; }
-.dashboard-section { display: none; }
-.dashboard-section.active-section { display: block; }
-.main-header { margin-bottom: 30px; }
-.main-header h1 { font-size: 2rem; font-weight: 700; }
-.main-header p { font-size: 1.1rem; color: var(--cor-texto-secundario); }
-.content-box { background-color: var(--cor-fundo-painel); padding: 25px; border-radius: 12px; border: 1px solid var(--cor-borda); margin-top: 30px; }
-.content-box h2 { margin-bottom: 20px; font-size: 1.3rem; }
-
-/* --- Estilos das Seções --- */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
-.stat-card { background-color: var(--cor-fundo-painel); padding: 25px; border-radius: 12px; border: 1px solid var(--cor-borda); display: flex; align-items: center; gap: 20px; }
-.stat-card i { font-size: 2.5rem; color: var(--cor-primaria); }
-.stat-info .stat-value { display: block; font-size: 2rem; font-weight: 700; color: var(--cor-texto-principal); }
-.stat-info .stat-label { color: var(--cor-texto-secundario); }
-
-.appointment-card { display: flex; justify-content: space-between; align-items: center; background-color: var(--cor-fundo-cartao); padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--cor-primaria); }
-.appointment-card .details p { margin: 0 0 5px 0; line-height: 1.4; }
-.appointment-card .details p:last-child { margin-bottom: 0; }
-.appointment-card .details .label { font-weight: 600; color: var(--cor-texto-secundario); margin-right: 8px; }
-.appointment-card .actions { display: flex; align-items: center; gap: 5px; }
-.appointment-card .actions button { background: transparent; border: none; color: var(--cor-texto-secundario); font-size: 1.1rem; cursor: pointer; padding: 5px; border-radius: 50%; width: 36px; height: 36px; transition: all 0.2s; }
-.appointment-card .actions .profile-btn:hover { color: var(--cor-primaria); background-color: var(--cor-primaria-suave); }
-.appointment-card .actions .delete-btn:hover { color: var(--cor-perigo); background-color: var(--cor-perigo-suave); }
-
-.agenda-controls, .clientes-controls { display: flex; gap: 15px; align-items: center; margin-top: 15px; }
-.agenda-controls .input-field, .clientes-controls .input-field { margin-bottom: 0; max-width: 200px; }
-.agenda-controls .btn-primary, .clientes-controls .btn-primary { padding: 12px 20px; font-size: 1rem; width: auto; }
-#agenda-grid-container { background-color: var(--cor-fundo-painel); padding: 20px; border-radius: 12px; border: 1px solid var(--cor-borda); margin-top: 20px; }
-.time-slot { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid var(--cor-borda); transition: background-color 0.2s; }
-.time-slot:last-child { border-bottom: none; }
-.time-label { width: 80px; font-weight: 600; color: var(--cor-texto-secundario); }
-.appointment-block { flex-grow: 1; background-color: var(--cor-primaria-suave); border-left: 4px solid var(--cor-primaria); padding: 15px; border-radius: 8px; cursor: pointer; position: relative; }
-.appointment-block strong { font-weight: 600; }
-.appointment-block span { display: block; font-size: 0.9rem; color: var(--cor-texto-secundario); }
-.appointment-block .delete-in-agenda-btn { position: absolute; top: 5px; right: 5px; background: none; border: none; color: var(--cor-texto-secundario); cursor: pointer; font-size: 1rem; padding: 5px; border-radius: 50%; width: 28px; height: 28px; }
-.appointment-block .delete-in-agenda-btn:hover { background-color: var(--cor-perigo-suave); color: var(--cor-perigo); }
-.empty-slot { flex-grow: 1; padding: 15px; color: var(--cor-texto-secundario); cursor: pointer; border-radius: 8px; }
-.empty-slot:hover { background-color: var(--cor-fundo-cartao); }
-#client-manager-list { margin-top: 20px; }
-.client-list-item { display: flex; justify-content: space-between; align-items: center; padding: 20px; background-color: var(--cor-fundo-painel); border: 1px solid var(--cor-borda); border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.2s, background-color 0.2s; }
-.client-list-item:hover { border-color: var(--cor-primaria); background-color: var(--cor-fundo-cartao); }
-.client-list-item strong { font-size: 1.1rem; }
-.client-list-item span { color: var(--cor-texto-secundario); }
-.client-list-item i { color: var(--cor-texto-secundario); }
-.report-box { background-color: var(--cor-fundo-painel); padding: 25px; border-radius: 12px; border: 1px solid var(--cor-borda); }
-.date-range-picker { display: flex; gap: 20px; margin-bottom: 20px; }
-.date-range-picker > div { flex: 1; }
-.revenue-display { margin-top: 20px; }
-#revenue-chart { max-height: 300px; margin-top: 20px; }
-
-/* --- Componentes Reutilizáveis --- */
-.input-field { background-color: var(--cor-fundo-input); border: 1px solid var(--cor-borda); color: var(--cor-texto-principal); border-radius: 8px; padding: 12px 15px; font-size: 1rem; font-family: var(--font-principal); width: 100%; }
-.input-field:focus { outline: none; border-color: var(--cor-primaria); box-shadow: 0 0 0 3px var(--cor-primaria-suave); }
-.btn-primary { background-color: var(--cor-primaria); color: #fff; border: none; border-radius: 8px; padding: 12px 25px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; }
-.btn-primary:hover { filter: brightness(1.1); }
-.btn-secondary { background-color: transparent; border: 1px solid var(--cor-borda); color: var(--cor-texto-principal); border-radius: 8px; padding: 12px 25px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-.btn-secondary:hover { background-color: var(--cor-fundo-cartao); border-color: var(--cor-texto-principal); }
-.btn-danger { background-color: transparent; border: 1px solid var(--cor-perigo); color: var(--cor-perigo); border-radius: 8px; padding: 12px 25px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-.btn-danger:hover { background-color: var(--cor-perigo-suave); }
-
-/* --- Modais --- */
-#modal-backdrop, #client-profile-modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
-#modal-content, #client-profile-modal-content { background-color: var(--cor-fundo-painel); border-radius: 12px; width: 90%; max-width: 500px; border: 1px solid var(--cor-borda); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-.modal-header { padding: 20px 30px; border-bottom: 1px solid var(--cor-borda); }
-.modal-header h3 { font-size: 1.3rem; }
-.modal-body { padding: 30px; display: flex; flex-direction: column; gap: 20px; }
-.modal-body .input-group { margin-bottom: 0; }
-.modal-body .input-group label { margin-bottom: 8px; font-size: 0.9rem; color: var(--cor-texto-secundario); font-weight: 500; }
-.modal-body .input-field { margin-bottom: 0; }
-
-/* ✅ A CORREÇÃO FINAL E CORRETA */
-.modal-footer {
-    padding: 20px 30px;
-    border-top: 1px solid var(--cor-borda);
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* CRIA O ESPAÇO MÁXIMO ENTRE OS GRUPOS */
-}
-.modal-footer-actions {
-    display: flex;
-    gap: 15px; /* CRIA O ESPAÇO ENTRE 'FECHAR' E 'SALVAR' */
-}
-.modal-footer button {
-    padding: 12px 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    width: auto;
-    border-radius: 8px;
-}
-
-/* --- Utilitários --- */
-.hidden { display: none !important; }
-.loading-spinner { width: 30px; height: 30px; border: 4px solid var(--cor-borda); border-top-color: var(--cor-primaria); border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* --- Responsividade --- */
-@media (max-width: 768px) {
-    .sidebar { width: 80px; }
-    .sidebar span { display: none; }
-    .menu-item, #logout-button { justify-content: center; margin: 5px; }
-    .menu-item i, #logout-button i { margin: 0; }
-    .main-content { padding: 20px; }
-    .stats-grid { grid-template-columns: 1fr; }
-    .date-range-picker { flex-direction: column; }
-}
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
