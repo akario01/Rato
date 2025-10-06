@@ -1,6 +1,6 @@
 /* ===================================================================
-   ARQUIVO DE ESTILO (CSS) V2.9 - DASHBOARD DE GESTÃO PROFISSIONAL
-   Correção Final, Definitiva e à Prova de Falhas dos Botões no Modal.
+   ARQUIVO DE ESTILO (CSS) V3.0 - CORREÇÃO FINAL E DEFINITIVA
+   Uso de CSS Grid para garantir layout à prova de falhas.
    =================================================================== */
 
 /* --- Variáveis de Cor e Fontes --- */
@@ -136,13 +136,17 @@ p { color: var(--cor-texto-secundario); }
 .modal-footer {
     padding: 20px 30px;
     border-top: 1px solid var(--cor-borda);
-    display: flex;
+    display: grid; /* MUDANÇA PARA GRID */
+    grid-template-columns: 1fr 1fr; /* Duas colunas de tamanho igual */
     align-items: center;
-    justify-content: space-between; /* Separa o grupo da esquerda do da direita */
+}
+.modal-footer .btn-danger {
+    justify-self: start; /* Alinha o botão de perigo à esquerda */
 }
 .modal-footer-actions {
+    justify-self: end; /* Alinha o grupo de ações à direita */
     display: flex;
-    gap: 15px; /* Cria o espaço entre "Fechar" e "Salvar" */
+    gap: 15px; /* Espaçamento entre "Fechar" e "Salvar" */
 }
 .modal-footer button {
     padding: 12px 25px;
