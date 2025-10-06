@@ -1,6 +1,6 @@
 /* ===================================================================
-   ARQUIVO DE ESTILO (CSS) V2.5 - DASHBOARD DE GESTÃO PROFISSIONAL
-   Correção de Alinhamento de Botões no Modal.
+   ARQUIVO DE ESTILO (CSS) V2.6 - DASHBOARD DE GESTÃO PROFISSIONAL
+   Correção Definitiva de Alinhamento de Botões no Modal.
    =================================================================== */
 
 /* --- Variáveis de Cor e Fontes --- */
@@ -93,9 +93,11 @@ p { color: var(--cor-texto-secundario); }
 .time-slot { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid var(--cor-borda); transition: background-color 0.2s; }
 .time-slot:last-child { border-bottom: none; }
 .time-label { width: 80px; font-weight: 600; color: var(--cor-texto-secundario); }
-.appointment-block { flex-grow: 1; background-color: var(--cor-primaria-suave); border-left: 4px solid var(--cor-primaria); padding: 15px; border-radius: 8px; cursor: pointer; position: relative; } /* Adicionado position relative */
+.appointment-block { flex-grow: 1; background-color: var(--cor-primaria-suave); border-left: 4px solid var(--cor-primaria); padding: 15px; border-radius: 8px; cursor: pointer; position: relative; }
 .appointment-block strong { font-weight: 600; }
 .appointment-block span { display: block; font-size: 0.9rem; color: var(--cor-texto-secundario); }
+.appointment-block .delete-in-agenda-btn { position: absolute; top: 5px; right: 5px; background: none; border: none; color: var(--cor-texto-secundario); cursor: pointer; font-size: 1rem; padding: 5px; border-radius: 50%; width: 28px; height: 28px; }
+.appointment-block .delete-in-agenda-btn:hover { background-color: var(--cor-perigo-suave); color: var(--cor-perigo); }
 .empty-slot { flex-grow: 1; padding: 15px; color: var(--cor-texto-secundario); cursor: pointer; border-radius: 8px; }
 .empty-slot:hover { background-color: var(--cor-fundo-cartao); }
 #client-manager-list { margin-top: 20px; }
@@ -129,12 +131,26 @@ p { color: var(--cor-texto-secundario); }
 .modal-body .input-group { margin-bottom: 0; }
 .modal-body .input-group label { margin-bottom: 8px; font-size: 0.9rem; color: var(--cor-texto-secundario); font-weight: 500; }
 .modal-body .input-field { margin-bottom: 0; }
-.modal-footer { padding: 20px 30px; border-top: 1px solid var(--cor-borda); display: flex; align-items: center; gap: 15px; }
 
-/* ✅ CORREÇÃO DE HARMONIA: Garante o alinhamento correto dos botões */
-.modal-footer > div { display: flex; gap: 15px; margin-left: auto; /* Empurra o grupo para a direita */ }
-
-.modal-footer button { padding: 12px 25px; font-size: 1rem; font-weight: 600; width: auto; border-radius: 8px; }
+/* ✅ CORREÇÃO DEFINITIVA DE HARMONIA: Garante o alinhamento correto dos botões */
+.modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid var(--cor-borda);
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Cria o espaço entre os grupos */
+}
+.modal-footer > div {
+    display: flex;
+    gap: 15px; /* Espaçamento apenas entre "Fechar" e "Salvar" */
+}
+.modal-footer button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    width: auto;
+    border-radius: 8px;
+}
 
 /* --- Utilitários --- */
 .hidden { display: none !important; }
