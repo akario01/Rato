@@ -1,6 +1,5 @@
 /* ===================================================================
-   ARQUIVO DE ESTILO (CSS) V3.1 - CORREÇÃO FINALÍSSIMA
-   Abordagem com Margin Auto para garantir layout à prova de colapso.
+   ARQUIVO DE ESTILO (CSS) V3.2 - A CORREÇÃO FINAL E CORRETA
    =================================================================== */
 
 /* --- Variáveis de Cor e Fontes --- */
@@ -132,19 +131,17 @@ p { color: var(--cor-texto-secundario); }
 .modal-body .input-group label { margin-bottom: 8px; font-size: 0.9rem; color: var(--cor-texto-secundario); font-weight: 500; }
 .modal-body .input-field { margin-bottom: 0; }
 
-/* ✅ CORREÇÃO FINALÍSSIMA (CSS) */
+/* ✅ A CORREÇÃO FINAL E CORRETA */
 .modal-footer {
     padding: 20px 30px;
     border-top: 1px solid var(--cor-borda);
     display: flex;
     align-items: center;
-}
-.modal-footer .btn-danger {
-    margin-right: auto; /* A "MOLA" QUE EMPURRA TUDO PARA OS LADOS */
+    justify-content: space-between; /* CRIA O ESPAÇO MÁXIMO ENTRE OS GRUPOS */
 }
 .modal-footer-actions {
     display: flex;
-    gap: 15px; /* Espaçamento entre "Fechar" e "Salvar" */
+    gap: 15px; /* CRIA O ESPAÇO ENTRE 'FECHAR' E 'SALVAR' */
 }
 .modal-footer button {
     padding: 12px 25px;
