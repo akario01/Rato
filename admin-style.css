@@ -1,6 +1,6 @@
 /* ===================================================================
-   ARQUIVO DE ESTILO (CSS) V2.7 - DASHBOARD DE GESTÃO PROFISSIONAL
-   Correção Final de Harmonia dos Botões no Modal.
+   ARQUIVO DE ESTILO (CSS) V2.8 - DASHBOARD DE GESTÃO PROFISSIONAL
+   Correção Final e Definitiva de Harmonia dos Botões no Modal.
    =================================================================== */
 
 /* --- Variáveis de Cor e Fontes --- */
@@ -132,14 +132,16 @@ p { color: var(--cor-texto-secundario); }
 .modal-body .input-group label { margin-bottom: 8px; font-size: 0.9rem; color: var(--cor-texto-secundario); font-weight: 500; }
 .modal-body .input-field { margin-bottom: 0; }
 
-/* ✅ CORREÇÃO FINAL DE HARMONIA (CSS): Garante o alinhamento e espaçamento corretos */
+/* ✅ CORREÇÃO FINAL E DEFINITIVA DE HARMONIA (CSS): Garante o alinhamento e espaçamento corretos */
 .modal-footer {
     padding: 20px 30px;
     border-top: 1px solid var(--cor-borda);
     display: flex;
     align-items: center;
     justify-content: flex-end; /* Alinha todos os botões à direita */
-    gap: 15px; /* Cria um espaço consistente entre cada botão */
+}
+.modal-footer button + button {
+    margin-left: 15px; /* Adiciona margem à esquerda de cada botão, exceto o primeiro */
 }
 .modal-footer button {
     padding: 12px 25px;
