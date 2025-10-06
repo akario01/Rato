@@ -1,6 +1,6 @@
 /* ===================================================================
-   ARQUIVO DE ESTILO (CSS) V3.0 - CORREÇÃO FINAL E DEFINITIVA
-   Uso de CSS Grid para garantir layout à prova de falhas.
+   ARQUIVO DE ESTILO (CSS) V3.1 - CORREÇÃO FINALÍSSIMA
+   Abordagem com Margin Auto para garantir layout à prova de colapso.
    =================================================================== */
 
 /* --- Variáveis de Cor e Fontes --- */
@@ -132,19 +132,17 @@ p { color: var(--cor-texto-secundario); }
 .modal-body .input-group label { margin-bottom: 8px; font-size: 0.9rem; color: var(--cor-texto-secundario); font-weight: 500; }
 .modal-body .input-field { margin-bottom: 0; }
 
-/* ✅ CORREÇÃO FINAL, DEFINITIVA E À PROVA DE FALHAS (CSS) */
+/* ✅ CORREÇÃO FINALÍSSIMA (CSS) */
 .modal-footer {
     padding: 20px 30px;
     border-top: 1px solid var(--cor-borda);
-    display: grid; /* MUDANÇA PARA GRID */
-    grid-template-columns: 1fr 1fr; /* Duas colunas de tamanho igual */
+    display: flex;
     align-items: center;
 }
 .modal-footer .btn-danger {
-    justify-self: start; /* Alinha o botão de perigo à esquerda */
+    margin-right: auto; /* A "MOLA" QUE EMPURRA TUDO PARA OS LADOS */
 }
 .modal-footer-actions {
-    justify-self: end; /* Alinha o grupo de ações à direita */
     display: flex;
     gap: 15px; /* Espaçamento entre "Fechar" e "Salvar" */
 }
